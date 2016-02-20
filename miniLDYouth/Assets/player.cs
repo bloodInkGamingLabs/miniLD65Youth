@@ -2,44 +2,60 @@
 using System.Collections;
 using System;
 
-public class player : LivingObjectClass {
+public class Player : LivingObjectClass
+{
     #region exp
-    public long exp_init = 0;
     private long _exp;
-    private float _expModifierPerLevel = 1.5f;
+    private float _expModifierPerLevel;
+
+    public float expModifierPerLevel_init = 1.5f;
+    public long exp_init = 0;
+
+
+    public long exp { get { return _exp - expMaxLastLevel; } }
+
+    /// <summary>
+    /// Maximale EXP im aktuellen Level
+    /// </summary>
+    public long expMax { get { return (long)Math.Pow(_expModifierPerLevel, level); } }
+    private long expMaxLastLevel { get { return level == 1 ? 0L : (long)Math.Pow(_expModifierPerLevel, level - 1); } }
     #endregion
 
     #region level
-    public int level_init = 1;
     private int _level;
+
+    public int level_init = 1;
     public int level { get { return _level; } }
-    public void levelUp()
+
+    private void levelUp()
     {
-        if (canLevelUp())
+        if (canLevelUp)
         {
             _level++;
-            //add some magical effects
+            //TODO: add some magical effects
         }
     }
-    private bool canLevelUp()
-    {
-        return _exp > Math.Pow(_expModifierPerLevel, level);
-    }
+    private bool canLevelUp { get { return _exp >= expMax; } }
     #endregion
 
     #region stats
     private float _movementSpeed = 5.0f;
     public float movementSpeed { get { return _movementSpeed; } }
-
+    private float _attackModifierPerLevel;
+    private float _defenseModifierPerLevel;
+    public float attackModifierPerLevel_init = 1.3f;
+    public float defenseModifierPerLevel_init = 1.3f;
+    //public float specialModifier = 1.5f;
     #endregion
 
 
-    public player() : base()
+    public Player() : base()
     {
         _level = level_init;
         _exp = exp_init;
+        _expModifierPerLevel = expModifierPerLevel_init;
     }
-  
+
 
     public void move()
     {
@@ -60,37 +76,50 @@ public class player : LivingObjectClass {
         {
             transform.position += Vector3.right * Time.deltaTime * this.movementSpeed * (diagonal ? diagonalSpeedModifier : 1.0f);
         }
-        
 
-        if(up & !down)
+
+        if (up & !down)
         {
             transform.position += Vector3.up * Time.deltaTime * this.movementSpeed * updownSpeedModifier * (diagonal ? diagonalSpeedModifier : 1.0f);
-        } else if(!up & down)
+        }
+        else if (!up & down)
         {
             transform.position += Vector3.down * Time.deltaTime * this.movementSpeed * updownSpeedModifier * (diagonal ? diagonalSpeedModifier : 1.0f);
         }
     }
 
 
-	// Use this for initialization
-	void Start () {
-	    
-	}
-	
-	// Update is called once per frame
-	void Update () {
+    // Use this for initialization
+    void Start()
+    {
+
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
         move();
         attack();
+        updateFacingDirection();
         //levelUp();//triggern von expgain
-	}
+    }
 
-    
+    private void updateFacingDirection()
+    {
+        /*
+        SpriteRenderer[] sprites = this.GetComponentsInChildren<SpriteRenderer>();
+        foreach (SpriteRenderer sprite in sprites)
+        {
+            
+            sprite.flipX = Camera.main.ScreenToWorldPoint(Input.mousePosition).x > transform.position.x;
+        }*/
+    }
 
     private void attack()
     {
         if (Input.GetKeyDown(KeyCode.Mouse0))
         {
-            //throw new NotImplementedException();
+
         }
     }
 }
