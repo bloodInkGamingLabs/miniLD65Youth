@@ -105,7 +105,7 @@ public class Player : LivingObjectClass
     {
         move();
         attack();
-        updateFacingDirection();
+        //updateFacingDirection();
         //levelUp();//triggern von expgain
     }
 
