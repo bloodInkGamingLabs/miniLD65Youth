@@ -106,6 +106,20 @@ public class Player : LivingObjectClass
         //levelUp();//triggern von expgain
     }
 
+    private Boolean facingRight = true;
+    private void flipX()
+    {
+
+        // Switch the way the player is labelled as facing
+        if(facingRight != Camera.main.ScreenToWorldPoint(Input.mousePosition).x > transform.position.x)
+        {
+            facingRight = Camera.main.ScreenToWorldPoint(Input.mousePosition).x > transform.position.x;
+            Vector3 theScale = transform.localScale;
+            theScale.x *= -1;
+            transform.localScale = theScale;
+        }
+    }
+
     private void updateFacingDirection()
     {
         //Rotate Player
@@ -116,12 +130,13 @@ public class Player : LivingObjectClass
         float rot_z = Mathf.Atan2(diff.y, diff.x) * Mathf.Rad2Deg;
         transform.localRotation = Quaternion.Euler(0f, 0f, rot_z - 90);
 
+        flipX();
         //Flip Sprites
-        SpriteRenderer[] sprites = this.GetComponentsInChildren<SpriteRenderer>();
+        /*SpriteRenderer[] sprites = this.GetComponentsInChildren<SpriteRenderer>();
         foreach (SpriteRenderer sprite in sprites)
         {
             sprite.flipX = Camera.main.ScreenToWorldPoint(Input.mousePosition).x > transform.position.x;
-        }
+        }*/
     }
 
     private void attack()

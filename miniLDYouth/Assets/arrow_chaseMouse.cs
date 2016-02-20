@@ -6,8 +6,6 @@ public class arrow_chaseMouse : MonoBehaviour {
     private void chaseMouse()
     {
         Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition) + new Vector3(90.0f, 0.0f, 0.0f);
-
-
         Vector3 diff = mousePosition - transform.parent.localPosition;
         diff.Normalize();
 
