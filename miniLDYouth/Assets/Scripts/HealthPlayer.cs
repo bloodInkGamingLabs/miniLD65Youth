@@ -45,6 +45,10 @@ public class HealthPlayer : MonoBehaviour {
     }
    
     public void addHealth(){
-        health++;
+        if (health < 6)
+        {
+            health++;
+        }
+        
     }
 }
