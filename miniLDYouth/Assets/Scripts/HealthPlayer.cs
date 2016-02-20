@@ -48,4 +48,7 @@ public class Health : MonoBehaviour {
         anim.SetBool("Dying", false);
     }
 
+    public void addHealth(){
+        health++;
+    }
 }

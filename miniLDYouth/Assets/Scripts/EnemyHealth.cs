@@ -5,6 +5,7 @@ public class EnemyHealth : MonoBehaviour {
 
 	public float health = 1;
     private Animator anim;
+    private float deathtimer = 0;
 
     void ApplyDemage(float demage){
         health -= demage;
@@ -18,7 +19,7 @@ public class EnemyHealth : MonoBehaviour {
     //function kill() {
     //   deathtimer ++;
     //    anim.SetBool(,true);
-    //    if (deathtimer > 5.0){
+    //    if (deathtimer > 5){
     //        Destroy(enemy);
     //    }
     // }
