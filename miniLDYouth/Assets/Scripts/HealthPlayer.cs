@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Health : MonoBehaviour {
+public class HealthPlayer : MonoBehaviour {
 
     public float startHealth = 6;
     private float health = 6;
@@ -13,10 +13,14 @@ public class Health : MonoBehaviour {
 	void Start () {
 	    anim = GetComponent<Animator>();
 	}
+
+    void Update() {
+        Debug.Log(health);
+    }
 	
     //Schaden an Chara wird hinzugefügt, durch isDamageable wird der Chara eine Sekunde imun auf Schaden 
-	void ApplyDamage(float damage) {
-        if (isDamageable == true){
+	public void ApplyDamage(float damage) {
+        if (isDamageable){
             health -= damage;
 
             if (health <= 0) {
@@ -30,24 +34,16 @@ public class Health : MonoBehaviour {
 
     }
 
+    private void Dying()
+    {
+        Debug.Log("I am Dead");
+    }
+
     void ResetIsDamageable()
     {
         isDamageable = true;
     }
-
-    //nach Tod wird das Level neu geladen
-    void Dying()
-    {
-        anim.SetBool("Dying", true);
-        RestardLevel();
-    }
-
-    void RestardLevel()
-    {
-        health = startHealth;
-        anim.SetBool("Dying", false);
-    }
-
+   
     public void addHealth(){
         health++;
     }
