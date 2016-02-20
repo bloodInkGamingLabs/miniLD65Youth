@@ -53,7 +53,7 @@ public abstract class LivingObjectClass : MonoBehaviour
     #endregion
 
 
-    public Boolean isAlive() { return health > 0f; }
+    public Boolean isAlive { get { return health > 0f; } }
     public LivingObjectClass()
     {
         _health = _healthMax = healthMax_init;

@@ -56,9 +56,11 @@ public class Player : LivingObjectClass
         _expModifierPerLevel = expModifierPerLevel_init;
     }
 
-
     private void move()
     {
+        if (!this.isAlive)
+            return;
+
         Boolean left = Input.GetKey(KeyCode.A) | Input.GetKey(KeyCode.LeftArrow);
         Boolean right = Input.GetKey(KeyCode.D) | Input.GetKey(KeyCode.RightArrow);
         Boolean up = Input.GetKey(KeyCode.W) | Input.GetKey(KeyCode.UpArrow);
@@ -70,21 +72,21 @@ public class Player : LivingObjectClass
 
         if (left & !right)
         {
-            transform.position += Vector3.left * Time.deltaTime * this.movementSpeed * (diagonal ? diagonalSpeedModifier : 1.0f);
+            transform.localPosition += Vector3.left * Time.deltaTime * this.movementSpeed * (diagonal ? diagonalSpeedModifier : 1.0f);
         }
         else if (!left & right)
         {
-            transform.position += Vector3.right * Time.deltaTime * this.movementSpeed * (diagonal ? diagonalSpeedModifier : 1.0f);
+            transform.localPosition += Vector3.right * Time.deltaTime * this.movementSpeed * (diagonal ? diagonalSpeedModifier : 1.0f);
         }
 
 
         if (up & !down)
         {
-            transform.position += Vector3.up * Time.deltaTime * this.movementSpeed * updownSpeedModifier * (diagonal ? diagonalSpeedModifier : 1.0f);
+            transform.localPosition += Vector3.up * Time.deltaTime * this.movementSpeed * updownSpeedModifier * (diagonal ? diagonalSpeedModifier : 1.0f);
         }
         else if (!up & down)
         {
-            transform.position += Vector3.down * Time.deltaTime * this.movementSpeed * updownSpeedModifier * (diagonal ? diagonalSpeedModifier : 1.0f);
+            transform.localPosition += Vector3.down * Time.deltaTime * this.movementSpeed * updownSpeedModifier * (diagonal ? diagonalSpeedModifier : 1.0f);
         }
     }
 
@@ -106,13 +108,20 @@ public class Player : LivingObjectClass
 
     private void updateFacingDirection()
     {
-        /*
+        //Rotate Player
+        Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        Vector3 diff = mousePosition - transform.parent.localPosition;
+        diff.Normalize();
+
+        float rot_z = Mathf.Atan2(diff.y, diff.x) * Mathf.Rad2Deg;
+        transform.localRotation = Quaternion.Euler(0f, 0f, rot_z - 90);
+
+        //Flip Sprites
         SpriteRenderer[] sprites = this.GetComponentsInChildren<SpriteRenderer>();
         foreach (SpriteRenderer sprite in sprites)
         {
-            
             sprite.flipX = Camera.main.ScreenToWorldPoint(Input.mousePosition).x > transform.position.x;
-        }*/
+        }
     }
 
     private void attack()

@@ -8,13 +8,13 @@ public class arrow_chaseMouse : MonoBehaviour {
         Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
 
-        Vector3 diff = mousePosition - transform.parent.position;
+        Vector3 diff = mousePosition - transform.parent.localPosition;
         diff.Normalize();
 
         float rot_z = Mathf.Atan2(diff.y, diff.x) * Mathf.Rad2Deg;
-        transform.rotation = Quaternion.Euler(0f, 0f, rot_z - 90);
+        transform.localRotation = Quaternion.Euler(0f, 0f, rot_z - 90);
 
-        transform.position = Vector3.MoveTowards(transform.parent.position, mousePosition, 5.0f);
+        transform.localPosition = Vector3.MoveTowards(transform.parent.position, mousePosition, 5.0f);
 
     }
 
