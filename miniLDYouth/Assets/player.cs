@@ -106,7 +106,7 @@ public class Player : LivingObjectClass
         //levelUp();//triggern von expgain
     }
 
-    private Boolean facingRight = true;
+    private Boolean facingRight = false;
     private void flipX()
     {
 
