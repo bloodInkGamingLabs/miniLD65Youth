@@ -1,11 +1,15 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Weapon_ChaseMouse : MonoBehaviour
-{
+public class turnTowardsMouse : MonoBehaviour {
 
-    private void chaseMouse()
-    {
+	// Use this for initialization
+	void Start () {
+	
+	}
+	
+	// Update is called once per frame
+	void Update () {
         Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         mousePosition.Set(mousePosition.x, mousePosition.y, 0.0f);
 
@@ -14,21 +18,5 @@ public class Weapon_ChaseMouse : MonoBehaviour
 
         float rot_z = Mathf.Atan2(diff.y, diff.z) * Mathf.Rad2Deg;
         //transform.rotation = Quaternion.Euler(0f, rot_z - 90, rot_z - 90.0f);
-        //transform.LookAt(Input.mousePosition);
-
-        transform.position = Vector3.MoveTowards(transform.parent.position, mousePosition, 5.0f);
-
-    }
-
-    // Use this for initialization
-    void Start()
-    {
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        chaseMouse();
     }
 }
