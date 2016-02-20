@@ -57,7 +57,7 @@ public class Player : LivingObjectClass
     }
 
 
-    public void move()
+    private void move()
     {
         Boolean left = Input.GetKey(KeyCode.A) | Input.GetKey(KeyCode.LeftArrow);
         Boolean right = Input.GetKey(KeyCode.D) | Input.GetKey(KeyCode.RightArrow);
