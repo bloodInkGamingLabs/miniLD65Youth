@@ -23,7 +23,7 @@ public class Enemy : MonoBehaviour {
 		//follow Player
 		Vector3 playerPos = player.transform.position;
         //playerPos.Set (playerPos.x, transform.position.y, playerPos.z);
-//		GetComponent<NavMeshAgent> ().destination = playerPos;
+		GetComponentInChildren<NavMeshAgent>().destination = playerPos;
 	}
 
 
