@@ -2,6 +2,8 @@
 using System.Collections;
 
 public class debugMouseCoordinates : MonoBehaviour {
+    public GameObject customObject = null;
+
 
 	// Use this for initialization
 	void Start () {
@@ -13,10 +15,8 @@ public class debugMouseCoordinates : MonoBehaviour {
         GUIText guitext = GetComponent<GUIText>();
         Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
-        string text = "Mouse: X: " + mousePos.x + " | Y: " + mousePos.y + " | Z: " + mousePos.z + System.Environment.NewLine;
-        text += "";
-
-
+        string text = "Mouse: " + mousePos.ToString() + System.Environment.NewLine;
+        text += (customObject!=null ? customObject.ToString() : "") + System.Environment.NewLine;
 
         guitext.text = text;
         
