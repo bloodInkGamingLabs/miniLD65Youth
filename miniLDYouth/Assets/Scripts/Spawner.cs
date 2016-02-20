@@ -39,7 +39,6 @@ public class Spawner : MonoBehaviour, Observable {
 	
 	// Update is called once per frame
 	void Update () {
-        Debug.Log(_active);
         if (_active)
         {
             if (currentSpawnDelay >= 0)
