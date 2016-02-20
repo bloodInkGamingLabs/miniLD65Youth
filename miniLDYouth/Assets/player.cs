@@ -80,6 +80,17 @@ public class player : LivingObjectClass {
 	// Update is called once per frame
 	void Update () {
         move();
-        levelUp();//triggern von expgain
+        attack();
+        //levelUp();//triggern von expgain
 	}
+
+    
+
+    private void attack()
+    {
+        if (Input.GetKeyDown(KeyCode.Mouse0))
+        {
+            //throw new NotImplementedException();
+        }
+    }
 }
