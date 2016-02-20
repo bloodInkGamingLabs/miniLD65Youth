@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 using System;
 
@@ -130,7 +130,7 @@ public class Player : LivingObjectClass
         float rot_z = Mathf.Atan2(diff.y, diff.x) * Mathf.Rad2Deg;
         transform.localRotation = Quaternion.Euler(0f, 0f, rot_z - 90);
 
-        flipX();
+        //flipX();
         //Flip Sprites
         /*SpriteRenderer[] sprites = this.GetComponentsInChildren<SpriteRenderer>();
         foreach (SpriteRenderer sprite in sprites)
