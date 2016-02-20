@@ -54,6 +54,9 @@ public class Player : LivingObjectClass
         _level = level_init;
         _exp = exp_init;
         _expModifierPerLevel = expModifierPerLevel_init;
+
+        _attackModifierPerLevel = attackModifierPerLevel_init;
+        _defenseModifierPerLevel = defenseModifierPerLevel_init;
     }
 
     private void move()
@@ -124,13 +127,15 @@ public class Player : LivingObjectClass
     {
         //Rotate Player
         Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        Vector3 diff = mousePosition - transform.parent.localPosition;
+        mousePosition.Set(mousePosition.x, 0.0f, mousePosition.z);
+
+        Vector3 diff = mousePosition - transform.position + new Vector3(90.0f, 0, 0);
         diff.Normalize();
 
         float rot_z = Mathf.Atan2(diff.y, diff.x) * Mathf.Rad2Deg;
-        transform.localRotation = Quaternion.Euler(0f, 0f, rot_z - 90);
+        transform.rotation = Quaternion.Euler(90.0f, rot_z - 90, 0f);
 
-        flipX();
+        //flipX();
         //Flip Sprites
         /*SpriteRenderer[] sprites = this.GetComponentsInChildren<SpriteRenderer>();
         foreach (SpriteRenderer sprite in sprites)
