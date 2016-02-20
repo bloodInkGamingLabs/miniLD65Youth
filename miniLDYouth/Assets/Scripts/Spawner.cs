@@ -1,8 +1,13 @@
 ﻿using UnityEngine;
+using Assets;
 using System.Collections;
+using System.Collections.Generic;
 
 public class Spawner : MonoBehaviour {
 
+
+
+    public bool debug = true;
     public GameObject spawnedEnemy;
     public double defaultSpawnDelay = 5;
     private double currentSpawnDelay;
@@ -44,8 +49,17 @@ public class Spawner : MonoBehaviour {
     private void spawnEnemy()
     {
         currentSpawnDelay = defaultSpawnDelay;
-        GameObject newEnemy = (GameObject)Instantiate(spawnedEnemy, new Vector3(Random.Range(-5, 5), 0, Random.Range(-5, 5)), new Quaternion());
-        //GameObject newEnemy = (GameObject) Instantiate(spawnedEnemy, this.transform.position, new Quaternion());
+        Vector3 spawnVector;
+        if (debug) {
+            spawnVector = new Vector3(Random.Range(-5, 5), 0, Random.Range(-5, 5));
+        } else {
+            spawnVector = this.transform.position;
+        }
+        
+        //Quaternion playerDirection = Helper.getDirectionToTarget(GameObject.FindGameObjectWithTag("Player").transform.position, spawnVector);
+        GameObject newEnemy = (GameObject)Instantiate(spawnedEnemy, spawnVector, new Quaternion());
+        newEnemy.transform.parent = GameObject.FindGameObjectWithTag("World").transform;
         newEnemy.transform.LookAt(GameObject.FindGameObjectWithTag("Player").transform);
+        newEnemy.transform.Rotate(new Vector3(1, 0, 0), 90);
     }
 }
