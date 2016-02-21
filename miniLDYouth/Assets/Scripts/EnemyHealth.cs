@@ -9,6 +9,10 @@ public class EnemyHealth : MonoBehaviour {
 
     public void ApplyDamage(double damage){
         _health -= damage;
+        if (_health <= 0)
+        {
+            die();
+        }
     }
 
     void Start()
@@ -18,10 +22,6 @@ public class EnemyHealth : MonoBehaviour {
 
     void Update()
     {
-        if (_health <= 0)
-        {
-            die();
-        }
     }
 
     private void die()

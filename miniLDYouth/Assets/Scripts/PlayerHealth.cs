@@ -1,29 +1,29 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class HealthPlayer : MonoBehaviour {
+public class PlayerHealth : MonoBehaviour {
 
-    public float startHealth = 6;
-    private float health = 6;
+    public double defaultHealth = 6;
+    private double _health = 6;
+    public double health { get { return _health; } }
 
-    private Animator anim;
     private bool isDamageable = true;
    
 	// Use this for initialization
 	void Start () {
-	    anim = GetComponent<Animator>();
 	}
 
     void Update() {
-        Debug.Log(health);
     }
 	
     //Schaden an Chara wird hinzugefügt, durch isDamageable wird der Chara eine Sekunde imun auf Schaden 
-	public void ApplyDamage(float damage) {
+	public void ApplyDamage(double damage) {
         if (isDamageable){
-            health -= damage;
+            _health -= damage;
 
-            if (health <= 0) {
+            Debug.Log(_health);
+
+            if (_health <= 0) {
                 Dying();
             }
 
@@ -45,9 +45,9 @@ public class HealthPlayer : MonoBehaviour {
     }
    
     public void addHealth(){
-        if (health < 6)
+        if (_health < 6)
         {
-            health++;
+            _health++;
         }
         
     }
