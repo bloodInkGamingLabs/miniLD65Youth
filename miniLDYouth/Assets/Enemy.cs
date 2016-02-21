@@ -13,6 +13,11 @@ public class Enemy : MonoBehaviour {
 	void Update () {
 		//follow Player
         GetComponentInChildren<NavMeshAgent>().destination = player.transform.position;
+        flipSprite();
+	}
+
+    private void flipSprite()
+    {
         if (gameObject.transform.rotation.eulerAngles.y > 180)
         {
             gameObject.transform.localScale = new Vector3(1, gameObject.transform.localScale.y, gameObject.transform.localScale.z);
@@ -21,7 +26,7 @@ public class Enemy : MonoBehaviour {
         {
             gameObject.transform.localScale = new Vector3(-1, gameObject.transform.localScale.y, gameObject.transform.localScale.z);
         }
-	}
+    }
 
 
 }
