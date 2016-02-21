@@ -105,43 +105,31 @@ public class Player : LivingObjectClass
     {
         move();
         attack();
-        //updateFacingDirection();
+        flipSprite();
+        updateFacingDirection();
         //levelUp();//triggern von expgain
     }
 
-    private Boolean facingRight = false;
-    private void flipX()
-    {
-
-        // Switch the way the player is labelled as facing
-        if(facingRight != Camera.main.ScreenToWorldPoint(Input.mousePosition).x > transform.position.x)
-        {
-            facingRight = Camera.main.ScreenToWorldPoint(Input.mousePosition).x > transform.position.x;
-            Vector3 theScale = transform.localScale;
-            theScale.x *= -1;
-            transform.localScale = theScale;
-        }
-    }
+    
 
     private void updateFacingDirection()
     {
-        //Rotate Player
-        Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        mousePosition.Set(mousePosition.x, 0.0f, mousePosition.z);
+        //Get the Screen positions of the object
+        Vector2 positionOnScreen = Camera.main.WorldToViewportPoint(transform.position);
 
-        Vector3 diff = mousePosition - transform.position + new Vector3(90.0f, 0, 0);
-        diff.Normalize();
+        //Get the Screen position of the mouse
+        Vector2 mouseOnScreen = (Vector2)Camera.main.ScreenToViewportPoint(Input.mousePosition);
 
-        float rot_z = Mathf.Atan2(diff.y, diff.x) * Mathf.Rad2Deg;
-        transform.rotation = Quaternion.Euler(90.0f, rot_z - 90, 0f);
+        //Get the angle between the points
+        float angle = AngleBetweenTwoPoints(positionOnScreen, mouseOnScreen);
 
-        //flipX();
-        //Flip Sprites
-        /*SpriteRenderer[] sprites = this.GetComponentsInChildren<SpriteRenderer>();
-        foreach (SpriteRenderer sprite in sprites)
-        {
-            sprite.flipX = Camera.main.ScreenToWorldPoint(Input.mousePosition).x > transform.position.x;
-        }*/
+        //Ta Daaa
+        transform.rotation = Quaternion.Euler(new Vector3(90.0f, 0f, angle));
+    }
+
+    private float AngleBetweenTwoPoints(Vector3 a, Vector3 b)
+    {
+        return Mathf.Atan2(a.y - b.y, a.x - b.x) * Mathf.Rad2Deg;
     }
 
     private void attack()
@@ -149,6 +137,19 @@ public class Player : LivingObjectClass
         if (Input.GetKeyDown(KeyCode.Mouse0))
         {
 
+        }
+    }
+
+    private void flipSprite()
+    {
+        Transform transf = gameObject.transform;
+        if ((transf.rotation.eulerAngles.y > 90 & transf.rotation.eulerAngles.y < 270))
+        {
+            transf.localScale = new Vector3(transf.localScale.x, -1, transf.localScale.z);
+        }
+        else
+        {
+            transf.localScale = new Vector3(transf.localScale.x, 1, transf.localScale.z);
         }
     }
 }
