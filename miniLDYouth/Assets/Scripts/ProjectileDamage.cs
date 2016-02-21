@@ -3,9 +3,9 @@ using System.Collections;
 
 public class ProjectileDamage : MonoBehaviour {
 
-    private double _damage;
-    public double damage { get { return _damage; } }
-    public double defaultDamage = 1;
+    private float _damage;
+    public float damage { get { return _damage; } }
+    public float defaultDamage = 1;
 
 	// Use this for initialization
 	void Start () {
