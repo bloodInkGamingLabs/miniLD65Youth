@@ -18,13 +18,23 @@ public class ProjectileDamage : MonoBehaviour {
 
     void OnTriggerEnter(Collider otherCollider)
     {
-        Debug.Log("Collision");
-        //GameObject other = collision.gameObject;
         EnemyHealth enemy = otherCollider.gameObject.GetComponentInParent<EnemyHealth>();
         if (enemy != null)
         {
             enemy.ApplyDamage(this._damage);
             Destroy(gameObject);
         }
+    }
+
+    void OnCollisionEnter(Collision collision)
+    {
+        if(collision.gameObject.tag.Equals("Borders")) {
+            Invoke("selfDestruct", 1);
+        }
+    }
+
+    void selfDestruct()
+    {
+        Destroy(gameObject);
     }
 }
