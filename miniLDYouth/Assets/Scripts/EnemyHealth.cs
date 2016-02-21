@@ -3,16 +3,30 @@ using System.Collections;
 
 public class EnemyHealth : MonoBehaviour {
 
-	public float health = 1;
-    private Animator anim;
-    
+	private double _health;
+    public double health { get { return _health; } }
+    public double defaultHealth = 1;
 
-    void ApplyDemage(float demage){
-        health -= demage;
+    public void ApplyDamage(double damage){
+        _health -= damage;
+    }
 
-        if (health <= 0){
-            Destroy(gameObject);
+    void Start()
+    {
+        _health = defaultHealth;
+    }
+
+    void Update()
+    {
+        if (_health <= 0)
+        {
+            die();
         }
+    }
+
+    private void die()
+    {
+        Destroy(gameObject);
     }
 
     
