@@ -13,14 +13,16 @@ public class Ente_Animator : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(this.GetComponent<EnemyHealth>().health <= 0)
+        /*
+        if(this.transform.parent.parent.gameObject.GetComponent<EnemyHealth>().health <= 0)
         {
             this.GetComponent<Animator>().SetTrigger("Dies");
-        }
+        }*/
     }
 
     public void OnCollisionEnter(Collision collision)
     {
+        Debug.Log("KOLLISION: " + collision.collider.ToString());
         if (collision.collider.Equals(GameObject.FindGameObjectWithTag("Player").GetComponent<Collider>()))
         {
             //Fight_Start
