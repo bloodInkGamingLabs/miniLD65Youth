@@ -11,20 +11,22 @@ public class Enemy : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-
-        ////TODO: next 5 lines are copied from player to prevent rotation, we should try to correct the rotation once in start() instead
-        //Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        //Vector3 diff = mousePosition - transform.parent.localPosition;
-        //diff.Normalize();		
-        //float rot_z = Mathf.Atan2(diff.y, diff.x) * Mathf.Rad2Deg;
-        //transform.localRotation = Quaternion.Euler(0f, 0f, rot_z - 90);
-		
-
 		//follow Player
-		Vector3 playerPos = player.transform.position;
-        //playerPos.Set (playerPos.x, transform.position.y, playerPos.z);
-		GetComponentInChildren<NavMeshAgent>().destination = playerPos;
+        GetComponentInChildren<NavMeshAgent>().destination = player.transform.position;
+        flipSprite();
 	}
+
+    private void flipSprite()
+    {
+        if (gameObject.transform.rotation.eulerAngles.y > 180)
+        {
+            gameObject.transform.localScale = new Vector3(1, gameObject.transform.localScale.y, gameObject.transform.localScale.z);
+        }
+        else
+        {
+            gameObject.transform.localScale = new Vector3(-1, gameObject.transform.localScale.y, gameObject.transform.localScale.z);
+        }
+    }
 
 
 }
